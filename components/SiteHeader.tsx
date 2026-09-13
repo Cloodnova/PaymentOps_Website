@@ -1,15 +1,25 @@
-import Link from 'next/link';
+'use client';
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://app.paymentops.cloudnova.tech';
+import Link from 'next/link';
+import { useState } from 'react';
+import { ArrowRight, ExternalLink, Menu, X } from 'lucide-react';
+import { APP_URL } from '@/lib/site';
 
 const NAV = [
   { href: '/product', label: 'Product' },
+  { href: '/validation-repair', label: 'Validation & Repair' },
+  { href: '/reconciliation', label: 'Reconciliation' },
+  { href: '/exception-operations', label: 'Exception Operations' },
   { href: '/iso-20022', label: 'ISO 20022' },
   { href: '/security', label: 'Security' },
   { href: '/deployment', label: 'Deployment' },
 ];
 
+const SIGN_IN = `${APP_URL}/login`;
+
 export default function SiteHeader() {
+  const [open, setOpen] = useState(false);
+
   return (
     <header className="site-header">
       <div className="site-header-inner">
@@ -29,18 +39,47 @@ export default function SiteHeader() {
         </nav>
 
         <div className="header-actions">
-          <a className="btn btn-ghost" href={`${APP_URL}/login`}>Sign in</a>
-          <Link className="btn" href="/request-demo">Request a Demo</Link>
+          <span className="header-cta">
+            <a
+              className="btn btn-ghost"
+              href={SIGN_IN}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Sign in <ExternalLink size={13} aria-hidden="true" />
+            </a>
+            <Link className="btn" href="/request-demo">
+              Request a Demo <ArrowRight size={14} aria-hidden="true" />
+            </Link>
+          </span>
+          <button
+            className="btn btn-ghost focus-ring menu-toggle"
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+          >
+            {open ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
+          </button>
         </div>
       </div>
 
-      <nav className="mobile-nav" aria-label="Primary mobile">
-        {NAV.map((item) => (
-          <Link key={item.href} href={item.href}>
-            {item.label}
+      {open ? (
+        <nav className="mobile-nav" id="mobile-navigation" aria-label="Primary mobile">
+          {NAV.map((item) => (
+            <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
+              {item.label}
+            </Link>
+          ))}
+          <a href={SIGN_IN} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>
+            Sign in <ExternalLink size={12} aria-hidden="true" />
+          </a>
+          <Link href="/request-demo" onClick={() => setOpen(false)}>
+            Request a Demo
           </Link>
-        ))}
-      </nav>
+        </nav>
+      ) : null}
     </header>
   );
 }

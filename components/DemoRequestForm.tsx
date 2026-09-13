@@ -37,15 +37,17 @@ export default function DemoRequestForm() {
 
   if (status === 'success') {
     return (
-      <div className="form-success" role="status">
-        Thank you. Your demo request has been received. A CloudNova representative will follow up.
+      <div className="surface" role="status">
+        <div className="form-success">
+          Thank you. Your demo request has been received. A CloudNova representative will follow up.
+        </div>
       </div>
     );
   }
 
   return (
-    <form onSubmit={onSubmit} aria-label="Request a demo">
-      <div className="grid grid-2" style={{ gap: '0 1.25rem' }}>
+    <form onSubmit={onSubmit} aria-label="Request a demo" className="surface">
+      <div className="demo-form-grid">
         <label className="field">
           <span className="field-label">First name *</span>
           <input name="first_name" required maxLength={120} autoComplete="given-name" />

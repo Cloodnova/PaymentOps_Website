@@ -1,6 +1,5 @@
 import Link from 'next/link';
-
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://app.paymentops.cloudnova.tech';
+import { APP_URL } from '@/lib/site';
 
 export default function SiteFooter() {
   return (
@@ -8,14 +7,14 @@ export default function SiteFooter() {
       <div className="container">
         <div className="footer-grid">
           <div>
-            <div className="brand" style={{ marginBottom: '0.75rem' }}>
+            <div className="brand" style={{ marginBottom: '0.85rem' }}>
               <span className="brand-mark" aria-hidden="true">C</span>
-              <span className="brand-name">
-                CloudNova <span>PaymentOps</span>
+              <span className="brand-name" style={{ color: 'var(--navy-fg)' }}>
+                CloudNova <span style={{ opacity: 0.6 }}>PaymentOps</span>
               </span>
             </div>
             <p className="small" style={{ color: 'var(--navy-muted)', maxWidth: '22rem' }}>
-              Payment-data intelligence and exception operations for financial institutions.
+              Payment data intelligence and exception operations for financial institutions.
               Available for controlled evaluation and PoC engagements.
             </p>
           </div>
@@ -32,8 +31,8 @@ export default function SiteFooter() {
             <Link href="/security">Security</Link>
             <Link href="/deployment">Deployment</Link>
             <Link href="/contact">Contact</Link>
-            <Link href="/request-demo">Request Demo</Link>
-            <a href={`${APP_URL}/login`}>Sign in</a>
+            <Link href="/request-demo">Request a Demo</Link>
+            <a href={`${APP_URL}/login`} target="_blank" rel="noopener noreferrer">Sign in</a>
           </div>
           <div>
             <h4>Legal</h4>

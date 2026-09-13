@@ -24,9 +24,9 @@ export default function RequestDemoPage() {
 
       <section className="section">
         <div className="container grid grid-2">
-          <div className="card">
-            <h3>Request a demo</h3>
-            <p className="small muted" style={{ marginBottom: '1.25rem' }}>
+          <div>
+            <h3 className="display display-2" style={{ fontSize: '1.6rem' }}>Request a demo</h3>
+            <p className="small muted" style={{ margin: '0.5rem 0 1.25rem' }}>
               Fields marked * are required.
             </p>
             <DemoRequestForm />
