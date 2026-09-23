@@ -1,13 +1,22 @@
 'use client';
 
-import { type FormEvent, useState } from 'react';
+import { type FormEvent, useRef, useState } from 'react';
 import { USE_CASES } from '@/lib/demoRequest';
+import { trackEvent } from '@/lib/analytics';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
 export default function DemoRequestForm() {
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState<string | null>(null);
+  const started = useRef(false);
+
+  const markStarted = () => {
+    if (started.current) return;
+    started.current = true;
+    // No form contents are sent — only that the user began the form.
+    trackEvent('request_demo_started');
+  };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,14 +33,22 @@ export default function DemoRequestForm() {
       if (res.ok) {
         setStatus('success');
         form.reset();
+        started.current = false;
+        // Conversion event: only non-identifying qualifiers — never email, name, company or message.
+        trackEvent('request_demo_submitted', {
+          use_case: String(data.use_case ?? ''),
+          country: String(data.country ?? ''),
+        });
         return;
       }
       const body = (await res.json().catch(() => ({}))) as { detail?: string };
       setError(body.detail ?? 'We could not submit your request. Please try again.');
       setStatus('error');
+      trackEvent('request_demo_error', { reason: 'http', status: res.status });
     } catch {
       setError('We could not submit your request. Please try again.');
       setStatus('error');
+      trackEvent('request_demo_error', { reason: 'network' });
     }
   };
 
@@ -46,7 +63,7 @@ export default function DemoRequestForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} aria-label="Request a demo" className="surface">
+    <form onSubmit={onSubmit} onFocus={markStarted} aria-label="Request a demo" className="surface">
       <div className="demo-form-grid">
         <label className="field">
           <span className="field-label">First name *</span>

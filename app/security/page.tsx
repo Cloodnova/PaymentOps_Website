@@ -1,11 +1,17 @@
 import { type Metadata } from 'next';
-import Link from 'next/link';
+import TrackedLink from '@/components/TrackedLink';
 
 export const metadata: Metadata = {
   title: 'Security',
   description:
     'Conservative security architecture: private backend services, same-origin web/API boundary, tenant isolation, server-side credential handling and an immutable audit trail.',
   alternates: { canonical: '/security' },
+  openGraph: {
+    title: 'Security | CloudNova PaymentOps',
+    description:
+      'Private backend services, tenant isolation, server-side credentials and an auditable decision trail.',
+    url: '/security',
+  },
 };
 
 const ITEMS = [
@@ -66,8 +72,12 @@ export default function SecurityPage() {
         <div className="container" style={{ textAlign: 'center' }}>
           <h2 className="display-2">Discuss your security requirements.</h2>
           <div className="hero-actions" style={{ justifyContent: 'center' }}>
-            <Link className="btn" href="/request-demo">Request a Demo</Link>
-            <Link className="btn btn-outline" href="/contact">Contact us</Link>
+            <TrackedLink className="btn" href="/request-demo" event="request_demo_clicked" eventParams={{ location: 'security' }}>
+              Request a Demo
+            </TrackedLink>
+            <TrackedLink className="btn btn-outline" href="/contact" event="contact_clicked" eventParams={{ location: 'security' }}>
+              Contact us
+            </TrackedLink>
           </div>
         </div>
       </section>

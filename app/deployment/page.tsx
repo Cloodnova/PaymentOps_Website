@@ -1,11 +1,17 @@
 import { type Metadata } from 'next';
-import Link from 'next/link';
+import TrackedLink from '@/components/TrackedLink';
 
 export const metadata: Metadata = {
   title: 'Deployment',
   description:
     'Deployment models for controlled PaymentOps evaluations: CloudNova-hosted PoC, customer-managed Kubernetes, and private cloud / hybrid discussions.',
   alternates: { canonical: '/deployment' },
+  openGraph: {
+    title: 'Deployment | CloudNova PaymentOps',
+    description:
+      'Controlled deployment models: CloudNova-hosted PoC, customer-managed Kubernetes, and private cloud / hybrid.',
+    url: '/deployment',
+  },
 };
 
 const MODELS = [
@@ -76,7 +82,9 @@ export default function DeploymentPage() {
         <div className="container" style={{ textAlign: 'center' }}>
           <h2 className="display-2">Plan a deployment with us.</h2>
           <div className="hero-actions" style={{ justifyContent: 'center' }}>
-            <Link className="btn" href="/request-demo">Request a Demo</Link>
+            <TrackedLink className="btn" href="/request-demo" event="poc_cta_clicked" eventParams={{ location: 'deployment' }}>
+              Request a Demo
+            </TrackedLink>
           </div>
         </div>
       </section>

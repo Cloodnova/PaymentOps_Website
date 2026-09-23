@@ -4,6 +4,11 @@ export const metadata: Metadata = {
   title: 'Terms',
   description: 'Terms of use for the CloudNova PaymentOps public website.',
   alternates: { canonical: '/terms' },
+  openGraph: {
+    title: 'Terms | CloudNova PaymentOps',
+    description: 'Terms of use for the CloudNova PaymentOps public website.',
+    url: '/terms',
+  },
 };
 
 export default function TermsPage() {

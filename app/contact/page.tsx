@@ -1,10 +1,15 @@
 import { type Metadata } from 'next';
-import Link from 'next/link';
+import TrackedLink from '@/components/TrackedLink';
 
 export const metadata: Metadata = {
   title: 'Contact',
   description: 'Contact CloudNova about CloudNova PaymentOps evaluations, PoCs and partnerships.',
   alternates: { canonical: '/contact' },
+  openGraph: {
+    title: 'Contact | CloudNova PaymentOps',
+    description: 'Contact CloudNova about PaymentOps evaluations, PoCs and partnerships.',
+    url: '/contact',
+  },
 };
 
 export default function ContactPage() {
@@ -25,11 +30,17 @@ export default function ContactPage() {
           <div className="card">
             <h3>Evaluation &amp; PoC enquiries</h3>
             <p>The fastest path is to request a demo; we will route your request to the right team.</p>
-            <p style={{ marginTop: '1.25rem' }}><Link className="btn" href="/request-demo">Request a Demo</Link></p>
+            <p style={{ marginTop: '1.25rem' }}>
+              <TrackedLink className="btn" href="/request-demo" event="request_demo_clicked" eventParams={{ location: 'contact' }}>
+                Request a Demo
+              </TrackedLink>
+            </p>
           </div>
           <div className="card">
             <h3>General enquiries</h3>
-            <p>Email: <a href="mailto:paymentops@cloudnova.tech">paymentops@cloudnova.tech</a></p>
+            <p>
+              Email: <a href="mailto:paymentops@cloudnova.tech">paymentops@cloudnova.tech</a>
+            </p>
             <p className="small muted" style={{ marginTop: '0.75rem' }}>
               Please do not send payment payloads, account numbers or other sensitive data by email.
             </p>

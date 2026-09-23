@@ -92,6 +92,10 @@ jobs:
           push: true
           # amd64 (loudnova x86_64) and arm64 (hetzner-dr Ampere) from one immutable tag.
           platforms: linux/amd64,linux/arm64
+          build-args: |
+            NEXT_PUBLIC_GA_MEASUREMENT_ID=G-NS75TXH0CQ
+            NEXT_PUBLIC_SITE_URL=https://paymentops.cloudnova.tech
+            NEXT_PUBLIC_APP_URL=https://paymentops-app.cloudnova.tech
           tags: ghcr.io/cloodnova/paymentops-website:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

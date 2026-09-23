@@ -1,13 +1,24 @@
 import Link from 'next/link';
 import { type Metadata } from 'next';
 import PageHero from '@/components/PageHero';
+import StructuredData from '@/components/StructuredData';
+import Faq from '@/components/Faq';
+import TrackedLink from '@/components/TrackedLink';
+import { breadcrumbLd, faqLd } from '@/lib/seo';
+import { PRODUCT_FAQ } from '@/lib/faq';
 import { FileCheck2, GitCompare, ClipboardCheck, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Product',
+  title: 'Payment Data Intelligence & Exception Operations',
   description:
-    'CloudNova PaymentOps unifies validation & repair, matching & reconciliation, and exception operations for ISO 20022 payment data.',
+    'CloudNova PaymentOps unifies ISO 20022 validation and repair, payment matching and reconciliation, and exception operations for financial institutions.',
   alternates: { canonical: '/product' },
+  openGraph: {
+    title: 'Product | CloudNova PaymentOps',
+    description:
+      'One deterministic platform for payment-data quality and operations: validation and repair, matching and reconciliation, and exception operations.',
+    url: '/product',
+  },
 };
 
 const PILLARS = [
@@ -34,6 +45,16 @@ const PILLARS = [
 export default function ProductPage() {
   return (
     <>
+      <StructuredData
+        data={[
+          breadcrumbLd([
+            { name: 'Home', path: '/' },
+            { name: 'Product', path: '/product' },
+          ]),
+          faqLd(PRODUCT_FAQ),
+        ]}
+      />
+
       <PageHero
         eyebrow="Product"
         title="A deterministic control surface for payment-data quality and operations"
@@ -42,7 +63,8 @@ export default function ProductPage() {
 
       <section className="section">
         <div className="container">
-          <div className="grid grid-3">
+          <h2 className="display-2" style={{ fontSize: '1.5rem' }}>Three product pillars</h2>
+          <div className="grid grid-3" style={{ marginTop: '1.5rem' }}>
             {PILLARS.map((p) => {
               const Icon = p.icon;
               return (
@@ -51,7 +73,7 @@ export default function ProductPage() {
                   <h3>{p.title}</h3>
                   <p>{p.body}</p>
                   <p style={{ marginTop: '1.25rem' }}>
-                    <Link href={p.href}>Explore <ArrowRight size={13} style={{ verticalAlign: 'middle' }} /></Link>
+                    <Link href={p.href}>Explore {p.title} <ArrowRight size={13} style={{ verticalAlign: 'middle' }} /></Link>
                   </p>
                 </article>
               );
@@ -63,8 +85,7 @@ export default function ProductPage() {
       <section className="section section-alt">
         <div className="container grid grid-2">
           <div>
-            <p className="eyebrow">How it works</p>
-            <h2 className="display-2">From raw message to reviewed outcome</h2>
+            <h2 className="display-2" style={{ fontSize: '1.5rem' }}>From raw message to reviewed outcome</h2>
             <ol className="list" style={{ marginTop: '1.5rem' }}>
               <li>Ingest a payment message (ISO 20022 XML, JSON or CSV) via a governed integration profile.</li>
               <li>Validate against schema and deterministic rules; derive structured address readiness.</li>
@@ -87,10 +108,22 @@ export default function ProductPage() {
       </section>
 
       <section className="section">
+        <div className="container" style={{ maxWidth: '52rem' }}>
+          <h2 className="display-2" style={{ fontSize: '1.5rem' }}>Frequently asked questions</h2>
+          <Faq items={PRODUCT_FAQ} id="faq-product" />
+        </div>
+      </section>
+
+      <section className="section section-alt">
         <div className="container" style={{ textAlign: 'center' }}>
           <h2 className="display-2">Available for controlled evaluation and PoC engagements.</h2>
+          <p className="lede" style={{ margin: '1rem auto 0' }}>
+            Start with your own sample data and agreed success criteria.
+          </p>
           <div className="hero-actions" style={{ justifyContent: 'center' }}>
-            <Link className="btn" href="/request-demo">Request a Demo</Link>
+            <TrackedLink className="btn" href="/request-demo" event="request_demo_clicked" eventParams={{ location: 'product' }}>
+              Request a Demo
+            </TrackedLink>
           </div>
         </div>
       </section>

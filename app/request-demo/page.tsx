@@ -6,6 +6,12 @@ export const metadata: Metadata = {
   description:
     'Request a controlled CloudNova PaymentOps demo or PoC evaluation for payment validation, reconciliation, exception operations and ISO 20022 readiness.',
   alternates: { canonical: '/request-demo' },
+  openGraph: {
+    title: 'Request a Demo | CloudNova PaymentOps',
+    description:
+      'Request a controlled demo or PoC evaluation of CloudNova PaymentOps.',
+    url: '/request-demo',
+  },
 };
 
 export default function RequestDemoPage() {

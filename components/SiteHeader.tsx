@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { ArrowRight, ExternalLink, Menu, X } from 'lucide-react';
 import { APP_URL } from '@/lib/site';
+import { trackEvent } from '@/lib/analytics';
 
 const NAV = [
   { href: '/product', label: 'Product' },
@@ -45,10 +46,15 @@ export default function SiteHeader() {
               href={SIGN_IN}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent('signin_clicked', { location: 'header' })}
             >
               Sign in <ExternalLink size={13} aria-hidden="true" />
             </a>
-            <Link className="btn" href="/request-demo">
+            <Link
+              className="btn"
+              href="/request-demo"
+              onClick={() => trackEvent('request_demo_clicked', { location: 'header' })}
+            >
               Request a Demo <ArrowRight size={14} aria-hidden="true" />
             </Link>
           </span>
@@ -72,10 +78,24 @@ export default function SiteHeader() {
               {item.label}
             </Link>
           ))}
-          <a href={SIGN_IN} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>
+          <a
+            href={SIGN_IN}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => {
+              trackEvent('signin_clicked', { location: 'mobile' });
+              setOpen(false);
+            }}
+          >
             Sign in <ExternalLink size={12} aria-hidden="true" />
           </a>
-          <Link href="/request-demo" onClick={() => setOpen(false)}>
+          <Link
+            href="/request-demo"
+            onClick={() => {
+              trackEvent('request_demo_clicked', { location: 'mobile' });
+              setOpen(false);
+            }}
+          >
             Request a Demo
           </Link>
         </nav>

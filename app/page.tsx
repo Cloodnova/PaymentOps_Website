@@ -13,6 +13,7 @@ import {
   Users,
 } from 'lucide-react';
 import DemoRequestForm from '@/components/DemoRequestForm';
+import TrackedLink from '@/components/TrackedLink';
 
 const ISO_ROWS: [string, string, string][] = [
   ['pain.001.001.13', 'Customer credit transfer initiation', 'Initiation'],
@@ -582,6 +583,40 @@ function DemoSection() {
   );
 }
 
+function Challenges() {
+  const items = [
+    ['ISO 20022 validation', '/iso-20022-validation', 'Validate an exact message version, understand findings, and produce a revalidated repair candidate.'],
+    ['Payment reconciliation', '/payment-reconciliation', 'Match payments and account events deterministically and make every break explainable.'],
+    ['Payment exception management', '/payment-exception-management', 'Investigate exceptions with structured evidence, human review and an audit trail.'],
+    ['Structured address readiness', '/structured-address-readiness', 'Assess address readiness with country-specific rules and controlled geography coverage.'],
+  ];
+  return (
+    <section className="section-pad section-alt" id="solutions">
+      <div className="shell">
+        <div className="section-intro">
+          <p className="eyebrow">Explore by challenge</p>
+          <h2 className="display display-2">Start from the problem you are solving.</h2>
+          <p className="lede">
+            PaymentOps addresses specific payment-data problems. Choose the one closest to your
+            programme to see how it works, what is in scope today and where the limits are.
+          </p>
+        </div>
+        <div className="grid grid-2" style={{ marginTop: '2.5rem' }}>
+          {items.map(([title, href, body]) => (
+            <article className="surface deploy-card" key={href}>
+              <h3 className="display">{title}</h3>
+              <p>{body}</p>
+              <p style={{ marginTop: '1.25rem' }}>
+                <Link href={href}>Explore {title.toLowerCase()}</Link>
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function HomePage() {
   return (
     <>
@@ -603,12 +638,12 @@ export default function HomePage() {
               controlled, auditable workflows.
             </p>
             <div className="hero-actions">
-              <Link className="btn" href="/request-demo">
+              <TrackedLink className="btn" href="/request-demo" event="request_demo_clicked" eventParams={{ location: 'home-hero' }}>
                 Request a Demo <ArrowRight size={15} aria-hidden="true" />
-              </Link>
-              <a className="btn btn-ghost" href="#product">
+              </TrackedLink>
+              <TrackedLink className="btn btn-ghost" href="/product" event="explore_product_clicked" eventParams={{ location: 'home-hero' }}>
                 Explore PaymentOps <ChevronDown size={15} aria-hidden="true" />
-              </a>
+              </TrackedLink>
             </div>
             <div className="hero-checks mono">
               <span><Check size={14} aria-hidden="true" /> Controlled workflows</span>
@@ -621,6 +656,7 @@ export default function HomePage() {
 
       <StoryRibbon />
       <Pillars />
+      <Challenges />
       <ImageFeature
         image="/international-payment-team.jpg"
         alt="Finance professionals reviewing an international business payment"
